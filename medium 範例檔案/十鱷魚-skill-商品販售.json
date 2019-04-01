@@ -1,0 +1,802 @@
+{
+  "name": "商品販售",
+  "intents": [
+    {
+      "intent": "discount",
+      "examples": [
+        {
+          "text": "最近的促銷"
+        },
+        {
+          "text": "近期優惠"
+        }
+      ],
+      "description": "促銷、折扣"
+    },
+    {
+      "intent": "buy",
+      "examples": [
+        {
+          "text": "我要購買"
+        },
+        {
+          "text": "我想要買"
+        }
+      ],
+      "description": "購買"
+    }
+  ],
+  "entities": [
+    {
+      "entity": "riceBall",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "飯糰",
+          "synonyms": [
+            "御飯糰"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "break_taste",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "抹茶銅鑼燒",
+          "synonyms": [
+            "抹茶",
+            "銅鑼燒"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "葡萄奶酥",
+          "synonyms": [
+            "葡萄",
+            "奶酥",
+            "葡萄奶酥"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "草莓風味",
+          "synonyms": [
+            "草莓"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "紅豆奶霜",
+          "synonyms": [
+            "紅豆",
+            "奶霜"
+          ]
+        }
+      ]
+    },
+    {
+      "entity": "riceBall_taste",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "鮪魚",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "肉鬆",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "哇沙米鮭魚",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "蔥油雞",
+          "synonyms": []
+        }
+      ]
+    },
+    {
+      "entity": "drink",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "飲料",
+          "synonyms": []
+        }
+      ]
+    },
+    {
+      "entity": "break",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "麵包",
+          "synonyms": []
+        }
+      ]
+    },
+    {
+      "entity": "drink_type",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "奶茶",
+          "synonyms": [
+            "milk tea",
+            "阿薩姆奶茶",
+            "厚奶茶"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "運動汽水",
+          "synonyms": [
+            "寶礦力水",
+            "舒跑"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "綠茶",
+          "synonyms": [
+            "綠茶",
+            "green tea",
+            "麥香綠茶",
+            "茶裏王"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "養樂多",
+          "synonyms": [
+            "養樂多"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "咖啡",
+          "synonyms": [
+            "伯朗咖啡",
+            "coffee"
+          ]
+        }
+      ]
+    }
+  ],
+  "language": "zh-cn",
+  "metadata": {
+    "api_version": {
+      "major_version": "v1",
+      "minor_version": "2018-09-20"
+    }
+  },
+  "description": "",
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "設定御飯糰價錢",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1554122341770",
+      "context": {
+        "riceBall_price": "<?@riceBall_taste:哇沙米鮭魚 ? 33 : @riceBall_taste:肉鬆 ? 28 : @riceBall_taste:蔥油雞 ? 33 : @riceBall_taste:鮪魚 ? 25 : 0?>"
+      },
+      "metadata": {},
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "true",
+      "dialog_node": "node_2_1554122341771"
+    },
+    {
+      "type": "folder",
+      "title": "御飯糰",
+      "parent": "node_2_1554032638273",
+      "metadata": {},
+      "conditions": "@riceBall_taste || @riceBall",
+      "dialog_node": "node_1_1554122341770",
+      "previous_sibling": "node_2_1554109532274"
+    },
+    {
+      "type": "folder",
+      "title": "飲料",
+      "parent": "node_2_1554032638273",
+      "metadata": {},
+      "conditions": "@drink || @drink_type",
+      "dialog_node": "node_2_1554109532274",
+      "previous_sibling": "node_18_1554041183294"
+    },
+    {
+      "type": "folder",
+      "title": "麵包",
+      "parent": "node_2_1554032638273",
+      "metadata": {},
+      "conditions": "@break || @break_taste",
+      "dialog_node": "node_18_1554041183294",
+      "previous_sibling": "node_3_1554036666323"
+    },
+    {
+      "type": "standard",
+      "title": "買",
+      "output": {},
+      "parent": "node_2_1554032638273",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#buy",
+      "dialog_node": "node_3_1554036666323",
+      "digress_out": "allow_all"
+    },
+    {
+      "type": "standard",
+      "title": "未知口味的麵包",
+      "output": {
+        "generic": [
+          {
+            "title": "目前我們只有買這幾款麵包",
+            "options": [
+              {
+                "label": "紅豆奶霜麵包",
+                "value": {
+                  "input": {
+                    "text": "紅豆奶霜麵包"
+                  }
+                }
+              },
+              {
+                "label": "草莓風味麵包",
+                "value": {
+                  "input": {
+                    "text": "草莓風味麵包"
+                  }
+                }
+              },
+              {
+                "label": "抹茶銅鑼燒",
+                "value": {
+                  "input": {
+                    "text": "抹茶銅鑼燒"
+                  }
+                }
+              },
+              {
+                "label": "葡萄奶酥麵包",
+                "value": {
+                  "input": {
+                    "text": "葡萄奶酥麵包"
+                  }
+                }
+              }
+            ],
+            "description": "請問你要夠買哪一款麵包呢?",
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_4_1554113187942",
+      "metadata": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "node_4_1554113187942"
+      },
+      "conditions": "@break",
+      "dialog_node": "node_20_1554041248972",
+      "previous_sibling": "node_9_1554037388470"
+    },
+    {
+      "type": "standard",
+      "title": "有口味的麵包",
+      "output": {},
+      "parent": "node_4_1554113187942",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "@break_taste",
+      "dialog_node": "node_9_1554037388470",
+      "digress_out": "allow_all"
+    },
+    {
+      "type": "standard",
+      "title": "無口味御飯糰",
+      "output": {
+        "generic": [
+          {
+            "title": "目前我們只有買這幾款御飯糰",
+            "options": [
+              {
+                "label": "哇沙米鮭魚御飯糰",
+                "value": {
+                  "input": {
+                    "text": "哇沙米鮭魚"
+                  }
+                }
+              },
+              {
+                "label": "肉鬆御飯糰",
+                "value": {
+                  "input": {
+                    "text": "肉鬆御飯糰"
+                  }
+                }
+              },
+              {
+                "label": "蔥油雞御飯糰",
+                "value": {
+                  "input": {
+                    "text": "蔥油雞御飯糰"
+                  }
+                }
+              },
+              {
+                "label": "鮪魚御飯糰",
+                "value": {
+                  "input": {
+                    "text": "鮪魚御飯糰"
+                  }
+                }
+              }
+            ],
+            "description": "請問你要夠買哪一款御飯糰呢?",
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_2_1554122341771",
+      "metadata": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "node_2_1554122341771"
+      },
+      "conditions": "@riceBall",
+      "dialog_node": "node_5_1554122341771",
+      "previous_sibling": "node_3_1554122341771"
+    },
+    {
+      "type": "standard",
+      "title": "有口味御飯糰",
+      "output": {},
+      "parent": "node_2_1554122341771",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "@riceBall_taste",
+      "dialog_node": "node_3_1554122341771"
+    },
+    {
+      "type": "standard",
+      "title": "設定飲料價錢",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1554109532274",
+      "context": {
+        "drink_price": "<?@drink_type:奶茶 ? 25 : @drink_type:綠茶 ? 20 : @drink_type:運動汽水 ? 30 : @drink_type:養樂多 ? 10 : @drink_type:咖啡 ? 55 : 0?>"
+      },
+      "metadata": {},
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "true",
+      "dialog_node": "node_3_1554112456695"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "系統收到你要購買 @riceBall_taste 御飯糰，售價為 $riceBall_price 元"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "目前累積售價為 $price 元，累計商品為 $product"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1554122341771",
+      "context": {
+        "price": "<?$price.toInt()  +$riceBall_price.toInt()?>",
+        "product": "<?$product == null ? @riceBall_taste + '御飯糰': $product + ' 、 ' + @riceBall_taste + '御飯糰'?>"
+      },
+      "metadata": {},
+      "conditions": "true",
+      "dialog_node": "node_4_1554122341771"
+    },
+    {
+      "type": "standard",
+      "title": "無種類飲料",
+      "output": {
+        "generic": [
+          {
+            "title": "目前我們只有買這幾款飲料",
+            "options": [
+              {
+                "label": "咖啡",
+                "value": {
+                  "input": {
+                    "text": "咖啡"
+                  }
+                }
+              },
+              {
+                "label": "奶茶",
+                "value": {
+                  "input": {
+                    "text": "奶茶"
+                  }
+                }
+              },
+              {
+                "label": "綠茶",
+                "value": {
+                  "input": {
+                    "text": "綠茶"
+                  }
+                }
+              },
+              {
+                "label": "運動汽水",
+                "value": {
+                  "input": {
+                    "text": "運動汽水"
+                  }
+                }
+              },
+              {
+                "label": "養樂多",
+                "value": {
+                  "input": {
+                    "text": "養樂多"
+                  }
+                }
+              }
+            ],
+            "description": "請問你要夠買哪一款飲料呢?",
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_3_1554112456695",
+      "metadata": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "user_input",
+        "dialog_node": "node_3_1554112456695"
+      },
+      "conditions": "@drink",
+      "dialog_node": "node_3_1554109778029",
+      "previous_sibling": "node_10_1554037418605"
+    },
+    {
+      "type": "standard",
+      "title": "有種類飲料",
+      "output": {},
+      "parent": "node_3_1554112456695",
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "@drink_type",
+      "dialog_node": "node_10_1554037418605",
+      "digress_out": "allow_all"
+    },
+    {
+      "type": "standard",
+      "title": "設定麵包價錢",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_18_1554041183294",
+      "context": {
+        "break_price": "<?@break_taste:紅豆奶霜 ? 25 : @break_taste:草莓風味 ? 30 : @break_taste:抹茶銅鑼燒 ? 20 : @break_taste:葡萄奶酥 ? 35 : 0?>"
+      },
+      "metadata": {},
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "true",
+      "dialog_node": "node_4_1554113187942"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "系統收到你要購買 @break_taste 麵包，售價為 $break_price 元"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "目前累積售價為 $price 元，累計商品為 $product"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1554037388470",
+      "context": {
+        "price": "<?$price.toInt()  +$break_price.toInt()?>",
+        "product": "<?$product  == null ? @break_taste + '麵包' : $product + ' 、 ' + @break_taste + '麵包' ?>"
+      },
+      "metadata": {},
+      "conditions": "true",
+      "dialog_node": "node_15_1554037481059"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "系統收到你要購買 @drink_type，售價為 $drink_price 元"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "目前累積售價為 $price 元，累計商品為 $product"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_10_1554037418605",
+      "context": {
+        "price": "<?$price.toInt()  +$drink_price.toInt()?>",
+        "product": "<?$product == null ? @drink_type : $product + ' 、 ' + @drink_type ?>"
+      },
+      "metadata": {},
+      "conditions": "true",
+      "dialog_node": "node_4_1554110253207"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "title": "商品購買",
+            "options": [
+              {
+                "label": "麵包",
+                "value": {
+                  "input": {
+                    "text": "麵包"
+                  }
+                }
+              },
+              {
+                "label": "飲料",
+                "value": {
+                  "input": {
+                    "text": "飲料"
+                  }
+                }
+              },
+              {
+                "label": "御飯糰",
+                "value": {
+                  "input": {
+                    "text": "御飯糰"
+                  }
+                }
+              }
+            ],
+            "description": "請問你想購買哪一種類型商品",
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_3_1554036666323",
+      "metadata": {},
+      "conditions": "true",
+      "dialog_node": "node_4_1554036932325",
+      "previous_sibling": "node_8_1554127417001"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1554036666323",
+      "metadata": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_2_1554122341771"
+      },
+      "conditions": "@riceBall || @riceBall_taste",
+      "dialog_node": "node_8_1554127417001",
+      "previous_sibling": "node_6_1554127413930"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1554036666323",
+      "metadata": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_3_1554112456695"
+      },
+      "conditions": "@drink || @drink_type",
+      "dialog_node": "node_6_1554127413930",
+      "previous_sibling": "node_5_1554036948866"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_3_1554036666323",
+      "metadata": {},
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_4_1554113187942"
+      },
+      "conditions": "@break || @break_taste",
+      "dialog_node": "node_5_1554036948866"
+    },
+    {
+      "type": "standard",
+      "title": "其他事情",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "我没听懂。请换个讲法再说一次"
+              },
+              {
+                "text": "您能改个说法吗？我没听懂"
+              },
+              {
+                "text": "我没理解您的意思"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {},
+      "conditions": "anything_else",
+      "dialog_node": "其他事情",
+      "previous_sibling": "node_2_1554032638273"
+    },
+    {
+      "type": "folder",
+      "title": "販售商品模組",
+      "metadata": {},
+      "conditions": "#buy || @riceBall || @drink || @break || @break_taste || @riceBall_taste || @drink_type",
+      "dialog_node": "node_2_1554032638273",
+      "previous_sibling": "欢迎"
+    },
+    {
+      "type": "standard",
+      "title": "歡迎訊息",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "你好，歡迎來到十鱷魚便利商店\n目前我們提供下列服務\n\n1、商品購買\n2、帳單繳費\n3、促銷折扣\n\n請告訴我你需要啥麼服務?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "商品購買",
+                "value": {
+                  "input": {
+                    "text": "商品購買"
+                  }
+                }
+              }
+            ],
+            "description": "",
+            "response_type": "option"
+          }
+        ]
+      },
+      "context": {
+        "price": 0,
+        "product": null
+      },
+      "metadata": {},
+      "conditions": "conversation_start",
+      "dialog_node": "欢迎"
+    }
+  ],
+  "workspace_id": "bdfd0b53-4a77-400d-b18c-9507a137af33",
+  "counterexamples": [],
+  "system_settings": {
+    "tooling": {
+      "store_generic_responses": true
+    }
+  },
+  "learning_opt_out": false,
+  "status": "Available"
+}
