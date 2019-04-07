@@ -6,3 +6,5 @@
 發文形式也是在 Issues 裡面開一個新的 Issue 當作文章來記錄
 
 也希望未來能夠開一個屬於技術的blog
+
+[Mediun Blog](https://medium.com/%E7%98%8B%E7%98%8B%E7%99%B2%E7%99%B2%E5%8D%81%E9%B1%B7%E9%AD%9A)
