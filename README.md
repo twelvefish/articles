@@ -8,3 +8,5 @@
 也希望未來能夠開一個屬於技術的blog
 
 [Mediun Blog](https://medium.com/%E7%98%8B%E7%98%8B%E7%99%B2%E7%99%B2%E5%8D%81%E9%B1%B7%E9%AD%9A)
+
+[English CV](https://drive.google.com/open?id=1tBf-7lC_fCBjYbTAYlc4FF-i2mtIK0kh6cgM2kWoyME)
