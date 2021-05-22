@@ -1,0 +1,211 @@
+{
+	"variables": [],
+	"info": {
+		"name": "ElasticSearch",
+		"_postman_id": "604dd1ef-3f69-2e54-9a1e-95f6a4bcf77f",
+		"description": "ElasticSearch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "創建索引",
+			"request": {
+				"url": "127.0.0.1:9200/library",
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "查看所有索引",
+			"request": {
+				"url": {
+					"raw": "127.0.0.1:9200/_cat/indices?v",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9200",
+					"path": [
+						"_cat",
+						"indices"
+					],
+					"query": [
+						{
+							"key": "v",
+							"value": null
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "查看單個索引",
+			"request": {
+				"url": "127.0.0.1:9200/library",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "刪除索引",
+			"request": {
+				"url": "127.0.0.1:9200/library",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "創建文檔",
+			"request": {
+				"url": "127.0.0.1:9200/library/_doc",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"bookName\" : \"三隻小豬\",\n \"type\" : \"novel\",\n \"price\" : 299\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "創建文檔(自定義唯一識別ID)",
+			"request": {
+				"url": "127.0.0.1:9200/library/_doc/101",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"bookName\" : \"白雪公主\",\n \"type\" : \"novel\",\n \"price\" : 199\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "查看文檔(特定ID)",
+			"request": {
+				"url": "127.0.0.1:9200/library/_doc/101",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "查看所有文檔",
+			"request": {
+				"url": "127.0.0.1:9200/library/_search",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "修改文檔(整檔覆蓋)",
+			"request": {
+				"url": "127.0.0.1:9200/library/_doc/101",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"bookName\" : \"白雪公主與七個小矮人\",\n \"type\" : \"novel\",\n \"price\" : 399\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "修改文檔局部資料",
+			"request": {
+				"url": "127.0.0.1:9200/library/_update/101",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"doc\":{\n  \"bookName\": \"綠野仙蹤\"\n }\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "刪除文檔",
+			"request": {
+				"url": "127.0.0.1:9200/library/_doc/101",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "刪除文檔(符合特定條件)",
+			"request": {
+				"url": "127.0.0.1:9200/library/_delete_by_query",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"query\":{\r\n\t\t\"match\": {\r\n\t\t\t\"type\": \"novel\"\r\n\t\t}\r\n\t}\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
